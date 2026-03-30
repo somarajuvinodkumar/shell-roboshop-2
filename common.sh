@@ -45,3 +45,52 @@ TOTAL_TIME=$(( $END_TIME - $START_TIME ))
 
 echo -e "Script exection completed successfully, $Y time taken: $TOTAL_TIME seconds $N" | tee -a $LOG_FILE
 }
+
+nodejs_setup(){
+
+  dnf module disable nodejs -y &>>$LOG_FILE
+  VALIDATE $? "disabling nodejs"
+
+  dnf module enable nodejs:20 -y &>>$LOG_FILE
+  VALIDATE $? "enabling nodejs"
+
+  dnf install nodejs -y &>>$LOG_FILE
+
+  npm install &>>$LOG_FILE
+
+}
+
+app_setup(){
+
+   id roboshop 
+   if [ $? -ne 0 ]
+   then
+       useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop
+   else
+        echo -e "system user roboshop already created ...$Y SKIPPING $N" 
+   fi
+    
+   mkdir -p /app 
+
+   curl -o /tmp/$app_name.zip https://roboshop-artifacts.s3.amazonaws.com/$app_name-v3.zip &>>$LOG_FILE
+
+    rm -rf /app/*
+    cd /app 
+    unzip /tmp/$app_name.zip &>>$LOG_FILE
+
+}
+
+systemd_setup(){
+    cp $SCRIPT_DIR/$app_name.service /etc/systemd/system/$app_name.service &>>$LOG_FILE
+
+    systemctl daemon-reload &>>$LOG_FILE
+    systemctl enable $app_name
+    systemctl start $app_name
+}
+    
+
+
+
+
+
+
