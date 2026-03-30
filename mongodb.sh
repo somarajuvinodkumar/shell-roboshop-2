@@ -7,19 +7,19 @@ check_root
 cp mongo.repo /etc/yum.repos.d/mongodb.repo
 VALIDATE $? "copying mongodb repo"
 
-dnf install mongodb-org -y 
+dnf install mongodb-org -y &>>$LOG_FILE
 VALIDATE $? "installing mongodb server"
 
-systemctl enable mongod 
+systemctl enable mongod &>>$LOG_FILE
 VALIDATE $? "enabling mongod"
 
-syatemctl start mongod 
+systemctl start mongod &>>$LOG_FILE
 VALIDATE $? "starting mongod"
 
 sed -i 's/127.0.0.1/0.0.0.0/g' /etc/mongod.conf
 VALIDATE $? "Editing mongodb conf file for remote connections"
 
-systemctl restart mongod 
+systemctl restart mongod &>>$LOG_FILE
 VALIDATE $? "restarting mongod"
 
 print_name
