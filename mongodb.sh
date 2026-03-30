@@ -22,7 +22,7 @@ VALIDATE $? "Editing mongodb conf file for remote connections"
 systemctl restart mongod &>>$LOG_FILE
 VALIDATE $? "restarting mongod"
 
-print_name
+print_time
 
 
 
