@@ -7,7 +7,7 @@ check_root
 
 print_time
 
-cp mongo.repo /etc/tum.repos.d/mongodb.repo
+cp mongo.repo /etc/yum.repos.d/mongodbb.repo
 VALIDATE $? "copying mongodb repo"
 
 dnf install mongodb-org -y &>>$LOG_FILE
