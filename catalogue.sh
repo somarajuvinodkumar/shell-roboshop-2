@@ -5,9 +5,10 @@ app_name=catalogue
 
 check_root
 
-app-setup
-nodejs-setup
-systemd-setup
+app_setup
+nodejs_setup
+systemd_setup
+
 
 cp $SCRIPT_DIR/mongo.repo /etc/yum.repos.d/mongo.repo &>>$LOG_FILE
 dnf install mongodb-mongosh -y
