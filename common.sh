@@ -60,7 +60,7 @@ nodejs_setup(){
     npm install &>>$LOG_FILE
     VALIDATE $? "npm dependencies installing"
 
-    app_setup(){
+app_setup(){
 
         id roboshop  &>>$LOG_FILE
         if [ $? -ne 0 ]
