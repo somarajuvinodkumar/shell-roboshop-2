@@ -7,20 +7,20 @@ check_root
 
 print_time
 
-cp mongo.repo /etc/yum.repos.d/mongodbb.repo
-VALIDATE $? "copying mongodb repo"
+cp mongo.repo /etc/yum.repos.d/mongodb.repo
+VALIDATE $? "Copying MongoDB repo"
 
 dnf install mongodb-org -y &>>$LOG_FILE
-VALIDATE $? "installing mongodb server"
+VALIDATE $? "Installing mongodb server"
 
-Systemctl enable mongodb &>>$LOG_FILE
-VALIDATE $? "Enabling mongodb"
+systemctl enable mongod &>>$LOG_FILE
+VALIDATE $? "Enabling MongoDB"
 
-systemctl start mongodb &>>$LOG_FILE
-VALIDATE $? "starting mongodb"
+systemctl start mongod &>>$LOG_FILE
+VALIDATE $? "Starting MongoDB"
 
 sed -i 's/127.0.0.1/0.0.0.0/g' /etc/mongod.conf
-VALIDATE $? "editing mongodb conf files for remote connections"
+VALIDATE $? "Editing mongodb conf file for remote connections"
 
-systemctl restart mongodb &>>$LOG_FILE
+systemctl restart mongod  &>>$LOG_FILE
 VALIDATE $? "restarting mongodb"
