@@ -47,23 +47,24 @@ echo -e "Script exection completed successfully, $Y time taken: $TOTAL_TIME seco
 }
 
 nodejs_setup(){
-
+    
     dnf module disable nodejs -y &>>$LOG_FILE
-    VALIDATE $? "disabling nodejs"
+    VALIDATE $? "Disabling node js"
 
     dnf module enable nodejs:20 -y &>>$LOG_FILE
-    VALIDATE $? "enabling nodejs:20"
+    VALIDATE $? "Enabling nodejs:20"
 
     dnf install nodejs -y &>>$LOG_FILE
-    VALIDATE $? "installing nodejs"
+    VALIDATE $? "Installing nodejs"
 
     npm install &>>$LOG_FILE
-    VALIDATE $? "npm dependencies installing"
+    VALIDATE $? "Npm dependencies installing"
+}
 
 app_setup(){
 
-        id roboshop  &>>$LOG_FILE
-        if [ $? -ne 0 ]
+    id roboshop &>>$LOG_FILE
+    if [ $? -ne 0 ]
     then
         useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop
         VALIDATE $? "creating roboshop system user"
