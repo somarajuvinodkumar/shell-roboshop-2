@@ -10,7 +10,7 @@ VALIDATE $? "disabling nginx"
 dnf module enable nginx:1.24 -y  &>>$LOG_FILE
 VALIDATE $? "enabling nginx"
 
-dnf instal nginx -y  &>>$LOG_FILE
+dnf install nginx -y  &>>$LOG_FILE
 VALIDATE $? "installing nginx"
 
 systemctl enable nginx  &>>$LOG_FILE
